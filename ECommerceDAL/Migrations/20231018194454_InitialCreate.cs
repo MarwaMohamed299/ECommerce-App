@@ -32,8 +32,8 @@ namespace ECommerceDAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DisplayName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    City = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     LastLogin = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -168,7 +168,7 @@ namespace ECommerceDAL.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Category = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<int>(type: "int", nullable: false),
                     MinimumQuality = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -191,9 +191,9 @@ namespace ECommerceDAL.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "City", "ConcurrencyStamp", "DisplayName", "Email", "EmailConfirmed", "LastLogin", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("0f8bbfb5-fd1c-4470-9f29-ee794e017c57"), 0, "Paris", "8bed6017-7e72-4525-b461-a9c2bfa7a1bd", "Sara", "Sara@example.com", false, new DateTime(2023, 10, 18, 9, 37, 9, 910, DateTimeKind.Local).AddTicks(8069), false, null, null, null, "Sara1234", null, null, false, null, false, null },
-                    { new Guid("41e918fe-e482-4b9d-a18a-64fc56b315bb"), 0, "Newyork", "6ecc22cd-f519-4519-a517-47013b2102ad", "John", "John@example.com", false, new DateTime(2023, 10, 18, 9, 37, 9, 910, DateTimeKind.Local).AddTicks(8048), false, null, null, null, "John1234", null, null, false, null, false, null },
-                    { new Guid("8a414d5b-3165-427c-85ed-9738a380aaf1"), 0, "Paris", "bf87e6a0-8b66-4145-852a-b6424122485c", "Michael", "Michael@gmail.com", false, new DateTime(2023, 10, 18, 9, 37, 9, 910, DateTimeKind.Local).AddTicks(8088), false, null, null, null, "Michael1234", null, null, false, null, false, null }
+                    { new Guid("89ab33d0-9b1f-4ae3-b188-63788fa867c5"), 0, "Newyork", "075ea229-4604-4be6-966d-d8817a5a4acb", "John", "John@example.com", false, new DateTime(2023, 10, 18, 22, 44, 53, 901, DateTimeKind.Local).AddTicks(9069), false, null, null, null, "John1234", null, null, false, null, false, null },
+                    { new Guid("9124be4a-a934-4605-adc1-93415acb5ee1"), 0, "Paris", "d58dd1f7-b420-4249-ac81-1359adb0df20", "Sara", "Sara@example.com", false, new DateTime(2023, 10, 18, 22, 44, 53, 901, DateTimeKind.Local).AddTicks(9086), false, null, null, null, "Sara1234", null, null, false, null, false, null },
+                    { new Guid("da3f5a5e-8abd-46c0-94e0-012247ea6114"), 0, "Paris", "9b84aef8-1cc6-40a8-b1c2-b55833cfbfb9", "Michael", "Michael@gmail.com", false, new DateTime(2023, 10, 18, 22, 44, 53, 901, DateTimeKind.Local).AddTicks(9090), false, null, null, null, "Michael1234", null, null, false, null, false, null }
                 });
 
             migrationBuilder.InsertData(
@@ -201,9 +201,9 @@ namespace ECommerceDAL.Migrations
                 columns: new[] { "Id", "Category", "DiscountRate", "Image", "MinimumQuality", "Name", "Price", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("092c5649-c88f-4b72-9335-68667c58e125"), "phones", 150m, "", "Good", "Iphone15", 1000, new Guid("8a414d5b-3165-427c-85ed-9738a380aaf1") },
-                    { new Guid("370178ee-41c4-4cd2-9897-a27af86636b9"), "phones", 10m, "", "Good", "Iphone14", 900, new Guid("0f8bbfb5-fd1c-4470-9f29-ee794e017c57") },
-                    { new Guid("fdd3af9b-7bf6-4ae9-8479-759358f411ec"), "phones", 10m, "", "VeryGood", "Iphone13", 800, new Guid("41e918fe-e482-4b9d-a18a-64fc56b315bb") }
+                    { new Guid("2601f3c5-aca9-463e-875f-bf7961bc62c7"), "phones", 10m, "", "VeryGood", "Iphone13", 800, new Guid("89ab33d0-9b1f-4ae3-b188-63788fa867c5") },
+                    { new Guid("7273f922-8bb1-432a-a257-4fe50763ca35"), "phones", 150m, "", "Good", "Iphone15", 1000, new Guid("da3f5a5e-8abd-46c0-94e0-012247ea6114") },
+                    { new Guid("956a9962-a651-4e2e-9437-c22ebfe65adb"), "phones", 10m, "", "Good", "Iphone14", 900, new Guid("9124be4a-a934-4605-adc1-93415acb5ee1") }
                 });
 
             migrationBuilder.CreateIndex(
@@ -237,6 +237,20 @@ namespace ECommerceDAL.Migrations
                 name: "EmailIndex",
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_Email",
+                table: "AspNetUsers",
+                column: "Email",
+                unique: true,
+                filter: "[Email] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_UserName",
+                table: "AspNetUsers",
+                column: "UserName",
+                unique: true,
+                filter: "[UserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",

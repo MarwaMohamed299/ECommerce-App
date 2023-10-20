@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerceDAL.Migrations
 {
     [DbContext(typeof(ECommerceContext))]
-    [Migration("20231018063710_InitialCreate")]
+    [Migration("20231018194454_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -25,7 +25,77 @@ namespace ECommerceDAL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ECommerceDAL.Data.Models.Identity.User", b =>
+            modelBuilder.Entity("ECommerceDAL.Data.Models.Product", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("DiscountRate")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MinimumQuality")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("7273f922-8bb1-432a-a257-4fe50763ca35"),
+                            Category = "phones",
+                            DiscountRate = 150m,
+                            Image = "",
+                            MinimumQuality = "Good",
+                            Name = "Iphone15",
+                            Price = 1000,
+                            UserId = new Guid("da3f5a5e-8abd-46c0-94e0-012247ea6114")
+                        },
+                        new
+                        {
+                            Id = new Guid("956a9962-a651-4e2e-9437-c22ebfe65adb"),
+                            Category = "phones",
+                            DiscountRate = 10m,
+                            Image = "",
+                            MinimumQuality = "Good",
+                            Name = "Iphone14",
+                            Price = 900,
+                            UserId = new Guid("9124be4a-a934-4605-adc1-93415acb5ee1")
+                        },
+                        new
+                        {
+                            Id = new Guid("2601f3c5-aca9-463e-875f-bf7961bc62c7"),
+                            Category = "phones",
+                            DiscountRate = 10m,
+                            Image = "",
+                            MinimumQuality = "VeryGood",
+                            Name = "Iphone13",
+                            Price = 800,
+                            UserId = new Guid("89ab33d0-9b1f-4ae3-b188-63788fa867c5")
+                        });
+                });
+
+            modelBuilder.Entity("ECommerceDAL.Data.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -35,14 +105,16 @@ namespace ECommerceDAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DisplayName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -92,6 +164,10 @@ namespace ECommerceDAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique()
+                        .HasFilter("[Email] IS NOT NULL");
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -100,19 +176,23 @@ namespace ECommerceDAL.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
+                    b.HasIndex("UserName")
+                        .IsUnique()
+                        .HasFilter("[UserName] IS NOT NULL");
+
                     b.ToTable("AspNetUsers", (string)null);
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("41e918fe-e482-4b9d-a18a-64fc56b315bb"),
+                            Id = new Guid("89ab33d0-9b1f-4ae3-b188-63788fa867c5"),
                             AccessFailedCount = 0,
                             City = "Newyork",
-                            ConcurrencyStamp = "6ecc22cd-f519-4519-a517-47013b2102ad",
+                            ConcurrencyStamp = "075ea229-4604-4be6-966d-d8817a5a4acb",
                             DisplayName = "John",
                             Email = "John@example.com",
                             EmailConfirmed = false,
-                            LastLogin = new DateTime(2023, 10, 18, 9, 37, 9, 910, DateTimeKind.Local).AddTicks(8048),
+                            LastLogin = new DateTime(2023, 10, 18, 22, 44, 53, 901, DateTimeKind.Local).AddTicks(9069),
                             LockoutEnabled = false,
                             Password = "John1234",
                             PhoneNumberConfirmed = false,
@@ -120,14 +200,14 @@ namespace ECommerceDAL.Migrations
                         },
                         new
                         {
-                            Id = new Guid("0f8bbfb5-fd1c-4470-9f29-ee794e017c57"),
+                            Id = new Guid("9124be4a-a934-4605-adc1-93415acb5ee1"),
                             AccessFailedCount = 0,
                             City = "Paris",
-                            ConcurrencyStamp = "8bed6017-7e72-4525-b461-a9c2bfa7a1bd",
+                            ConcurrencyStamp = "d58dd1f7-b420-4249-ac81-1359adb0df20",
                             DisplayName = "Sara",
                             Email = "Sara@example.com",
                             EmailConfirmed = false,
-                            LastLogin = new DateTime(2023, 10, 18, 9, 37, 9, 910, DateTimeKind.Local).AddTicks(8069),
+                            LastLogin = new DateTime(2023, 10, 18, 22, 44, 53, 901, DateTimeKind.Local).AddTicks(9086),
                             LockoutEnabled = false,
                             Password = "Sara1234",
                             PhoneNumberConfirmed = false,
@@ -135,87 +215,18 @@ namespace ECommerceDAL.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8a414d5b-3165-427c-85ed-9738a380aaf1"),
+                            Id = new Guid("da3f5a5e-8abd-46c0-94e0-012247ea6114"),
                             AccessFailedCount = 0,
                             City = "Paris",
-                            ConcurrencyStamp = "bf87e6a0-8b66-4145-852a-b6424122485c",
+                            ConcurrencyStamp = "9b84aef8-1cc6-40a8-b1c2-b55833cfbfb9",
                             DisplayName = "Michael",
                             Email = "Michael@gmail.com",
                             EmailConfirmed = false,
-                            LastLogin = new DateTime(2023, 10, 18, 9, 37, 9, 910, DateTimeKind.Local).AddTicks(8088),
+                            LastLogin = new DateTime(2023, 10, 18, 22, 44, 53, 901, DateTimeKind.Local).AddTicks(9090),
                             LockoutEnabled = false,
                             Password = "Michael1234",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false
-                        });
-                });
-
-            modelBuilder.Entity("ECommerceDAL.Data.Models.Product", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Category")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("DiscountRate")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MinimumQuality")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("092c5649-c88f-4b72-9335-68667c58e125"),
-                            Category = "phones",
-                            DiscountRate = 150m,
-                            Image = "",
-                            MinimumQuality = "Good",
-                            Name = "Iphone15",
-                            Price = 1000,
-                            UserId = new Guid("8a414d5b-3165-427c-85ed-9738a380aaf1")
-                        },
-                        new
-                        {
-                            Id = new Guid("370178ee-41c4-4cd2-9897-a27af86636b9"),
-                            Category = "phones",
-                            DiscountRate = 10m,
-                            Image = "",
-                            MinimumQuality = "Good",
-                            Name = "Iphone14",
-                            Price = 900,
-                            UserId = new Guid("0f8bbfb5-fd1c-4470-9f29-ee794e017c57")
-                        },
-                        new
-                        {
-                            Id = new Guid("fdd3af9b-7bf6-4ae9-8479-759358f411ec"),
-                            Category = "phones",
-                            DiscountRate = 10m,
-                            Image = "",
-                            MinimumQuality = "VeryGood",
-                            Name = "Iphone13",
-                            Price = 800,
-                            UserId = new Guid("41e918fe-e482-4b9d-a18a-64fc56b315bb")
                         });
                 });
 
@@ -352,7 +363,7 @@ namespace ECommerceDAL.Migrations
 
             modelBuilder.Entity("ECommerceDAL.Data.Models.Product", b =>
                 {
-                    b.HasOne("ECommerceDAL.Data.Models.Identity.User", "User")
+                    b.HasOne("ECommerceDAL.Data.Models.User", "User")
                         .WithMany("Products")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -372,7 +383,7 @@ namespace ECommerceDAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("ECommerceDAL.Data.Models.Identity.User", null)
+                    b.HasOne("ECommerceDAL.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -381,7 +392,7 @@ namespace ECommerceDAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("ECommerceDAL.Data.Models.Identity.User", null)
+                    b.HasOne("ECommerceDAL.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -396,7 +407,7 @@ namespace ECommerceDAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ECommerceDAL.Data.Models.Identity.User", null)
+                    b.HasOne("ECommerceDAL.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -405,14 +416,14 @@ namespace ECommerceDAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("ECommerceDAL.Data.Models.Identity.User", null)
+                    b.HasOne("ECommerceDAL.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ECommerceDAL.Data.Models.Identity.User", b =>
+            modelBuilder.Entity("ECommerceDAL.Data.Models.User", b =>
                 {
                     b.Navigation("Products");
                 });

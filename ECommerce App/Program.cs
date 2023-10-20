@@ -3,6 +3,7 @@ using ECommerceDAL.Data.Context;
 using ECommerceDAL.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -66,6 +67,10 @@ namespace ECommerce_App
                 app.UseSwaggerUI();
             }
 
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider ($"{Environment.CurrentDirectory}\\Images\\")
+            });
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
