@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ECommerceDAL.Repos.Generics
+namespace ECommerceDAL.Repos.Products.Generics
 {
     public interface IGenericRepo<T> where T : class
     {

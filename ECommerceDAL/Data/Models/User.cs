@@ -14,7 +14,7 @@ namespace ECommerceDAL.Data.Models
     public class User : IdentityUser<Guid>
     {
         [StringLength(20,MinimumLength =2)]
-        public string DisplayName { get; set; }
+        public string Name { get; set; }
 
         [StringLength(20, MinimumLength = 2)]
         public string City { get; set; }
@@ -22,7 +22,7 @@ namespace ECommerceDAL.Data.Models
 
         public string Password { get; set; } = string.Empty;
         [EmailAddress]
-        public string Email { get; set; } = string.Empty;
+        public string E_mail { get; set; } = string.Empty;
         public DateTime LastLogin { get; set; }
 
         //NavProps

@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ECommerceBL.Managers.Products
+
+namespace ECommerceBL.Managers.Product
 {
     public class ProductManager : IProductManager
     {
@@ -28,8 +29,10 @@ namespace ECommerceBL.Managers.Products
                 Price= A.Price,
                 Name=A.Name,
                 Id=A.Id,
-                MinimumQuality=A.MinimumQuality
-                
+                MinimumQuality=A.MinimumQuality,
+                UserId = A.UserId
+
+
             });
         }
 
@@ -44,6 +47,7 @@ namespace ECommerceBL.Managers.Products
             return new ProductReadDto
             {
                 Id = ProductFromDb.Id,
+                UserId = ProductFromDb.UserId,
                 Image = ProductFromDb.Image,
                 Name = ProductFromDb.Name,
                 MinimumQuality = ProductFromDb.MinimumQuality,
@@ -62,7 +66,9 @@ namespace ECommerceBL.Managers.Products
                 DiscountRate = ProductFromRequest.DiscountRate,
                 MinimumQuality = ProductFromRequest.MinimumQuality,
                 Price = ProductFromRequest.Price,
-                
+                UserId = ProductFromRequest.UserId
+
+
             };
             _productRepo.Add(product);
             _productRepo.SaveChanges();
@@ -72,13 +78,16 @@ namespace ECommerceBL.Managers.Products
         }
         public bool Update(ProductUpdateDto productFromRequest)
         {
-            ECommerceDAL.Data.Models.Product product = _productRepo.GetProductById(productFromRequest.Id);
-            if (productFromRequest == null)
+            ECommerceDAL.Data.Models.Product? product = _productRepo.GetProductById(productFromRequest.Id);
+            if (product == null)
             {
                 return false;
             }
-            productFromRequest.Image = product.Image;
-            productFromRequest.Name = product.Name;
+            product.Image = productFromRequest.Image;
+             product.Name = productFromRequest.Name;
+            product.MinimumQuality = productFromRequest.MinimumQuality;
+            product.Price = productFromRequest.Price;
+            product.DiscountRate = productFromRequest.DiscountRate;
             _productRepo.Update(product);
             _productRepo.SaveChanges();
             return true;

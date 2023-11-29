@@ -2,6 +2,8 @@
 using ECommerceBL.GeneralResponse;
 using ECommerceBL.Managers.Product;
 using ECommerceDAL.Data.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce_App.Controllers.ProductsController
@@ -16,8 +18,9 @@ namespace ECommerce_App.Controllers.ProductsController
         {
             _productManager = productManager;
         }
-
         [HttpGet]
+       // [Authorize]
+
         public ActionResult<List<ProductReadDto>> GetAll()
         {
             return _productManager.GetAll().ToList();
@@ -40,6 +43,7 @@ namespace ECommerce_App.Controllers.ProductsController
         public ActionResult Add(ProductAddDto productDto)
         {
             var newId = _productManager.Add(productDto);
+
             return CreatedAtAction(nameof(GetProductById),
                 new { id = newId },
                 new GeneralResponse("Product Has Been Added Successfully!"));
@@ -55,19 +59,21 @@ namespace ECommerce_App.Controllers.ProductsController
             {
                 return NotFound();
             }
-            return NoContent();
+            return Ok("Product is Updated Successfully");
         }
+
         [HttpDelete]
         [Route("{id}")]
-        public ActionResult Delete(Guid Id)
-        {
-            var isFound = _productManager.Delete(Id);
+        public ActionResult Delete(Guid id)
+        {   
+            var isFound = _productManager.Delete(id);
             if (!isFound)
             {
                 return NotFound();
 
             }
-            return NoContent();
+            return Ok("Product is Deleted Successfully");
+
         }
     }
 }

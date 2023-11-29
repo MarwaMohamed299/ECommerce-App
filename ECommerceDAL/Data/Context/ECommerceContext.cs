@@ -41,7 +41,7 @@ namespace ECommerceDAL.Data.Context
             modelBuilder.Entity<Product>().HasOne(p => p.User)
                      .WithMany(u => u.Products)
                      .HasForeignKey(p => p.UserId)
-                     .OnDelete(DeleteBehavior.Cascade); ;
+                     .OnDelete(DeleteBehavior.Cascade); 
 
             
 
@@ -53,7 +53,7 @@ namespace ECommerceDAL.Data.Context
             new User
             {
                 Id = Guid.NewGuid(),
-                DisplayName = "John",
+                UserName = "John",
                 City = "Newyork",
                 Password = "John1234", 
                 Email = "John@example.com", 
@@ -62,7 +62,7 @@ namespace ECommerceDAL.Data.Context
             new User
             {
                 Id = Guid.NewGuid(),
-                DisplayName = "Sara",
+                UserName = "Sara",
                 City = "Paris",
                 Password = "Sara1234", 
                 Email = "Sara@example.com", 
@@ -71,7 +71,7 @@ namespace ECommerceDAL.Data.Context
             new User
             {
                 Id = Guid.NewGuid(),
-                DisplayName = "Michael",
+                UserName = "Michael",
                 
                 City = "Paris",
                 Password = "Michael1234", 

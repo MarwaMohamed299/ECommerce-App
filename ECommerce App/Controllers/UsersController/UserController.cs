@@ -1,6 +1,8 @@
-﻿using ECommerceBL.DTOs.Users;
+﻿using Amazon.SecurityToken.Model;
+using ECommerceBL.DTOs.Users;
 using ECommerceDAL.Data.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -27,7 +29,7 @@ namespace ECommerce_App.Controllers.UsersController
         [Route("staticLogin")]
         public ActionResult<string> StaticLogin(LoginDto credentials)
         {
-            if (credentials.DisplayName == "User" && credentials.Password == "pass")
+            if (credentials.DisplayName == "user" && credentials.Password == "pass")
             {
                 var userClaims = new List<Claim>
                 {
@@ -43,13 +45,16 @@ namespace ECommerce_App.Controllers.UsersController
                 //Determine how to Generate Hashing Result
                 var methodUsedInGeneratingToken = new SigningCredentials(Key, SecurityAlgorithms.HmacSha256Signature);
 
-                //GenerateTOKen 
+                //GenerateToKen         (Def)
                 var jwt = new JwtSecurityToken(
                     claims: userClaims,
-                    notBefore: DateTime.Now.AddMinutes(15),
+                    notBefore: DateTime.Now,
+                    issuer:"BackEndTeam",
+                    audience:"Users",
+                    expires: DateTime.Now.AddMinutes(15),
                     signingCredentials: methodUsedInGeneratingToken
-                    );
-
+                    ) ;
+                // Token Generation Handling
                 var tokenHandler = new JwtSecurityTokenHandler();
                 string tokenString = tokenHandler.WriteToken(jwt);
 
@@ -99,8 +104,10 @@ namespace ECommerce_App.Controllers.UsersController
             //GenerateTOKen 
             var jwt = new JwtSecurityToken(
                 claims: userClaims,
-                notBefore: DateTime.Now.AddMinutes(15),
-                expires: exp,
+                notBefore: DateTime.Now,
+                issuer: "BackEndTeam",
+                audience: "Users",
+                expires: DateTime.Now.AddMinutes(15),
                 signingCredentials: methodUsedInGeneratingToken
                 );
 
@@ -119,47 +126,48 @@ namespace ECommerce_App.Controllers.UsersController
 
 
         }
+
         [HttpPost]
         [Route("register")]
-        public async Task<ActionResult<string>> Register([FromBody] RegisterDto registerDto)
+
+        public  async Task <ActionResult<string>> Register (RegisterDto registerDto)
+
         {
-
-
-            var passwordValidator = new PasswordValidator<User>();
-            var result = await passwordValidator.ValidateAsync(_userManager, null, registerDto.Password);
-            var errors = result.Errors.Select(e => new { code = e.Code, description = e.Description });
-
-
-            if (result.Succeeded)
+            User NewUser = new User
             {
-                var NewUser = new User
-                {
-                    DisplayName = registerDto.DisplayName,
-                    Email = registerDto.Email,
-                    City = registerDto.City,
-                    PasswordHash = registerDto.Password,
-                };
+                UserName = registerDto.UserName,
+                Email = registerDto.Email,
+                City = registerDto.City,
+            };
 
-                var creationResult = await _userManager.CreateAsync(NewUser, registerDto.Password);
+           var CreationResult = await _userManager.CreateAsync(NewUser, registerDto.Password);
 
-                if (creationResult.Succeeded)
-                {
-                    return Ok("User Created Successfully");
-                }
-                else
-                {
-                    return BadRequest(creationResult);
-                }
+            if (!CreationResult.Succeeded)
+            {
+                return BadRequest(CreationResult.Errors);
             }
             else
             {
+                var userClaims = new List<Claim>
+            {
+                    new Claim (ClaimTypes.NameIdentifier , NewUser.UserName),
+                    new Claim(ClaimTypes.Email , NewUser.Email)
+                };
+                await _userManager.AddClaimsAsync(NewUser, userClaims);
 
-                return BadRequest(result.Errors);
+
+                return Ok();
             }
         }
 
 
+
+       
+  
+            }
+
+
     }
-}
+
 
  

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerceDAL.Migrations
 {
     [DbContext(typeof(ECommerceContext))]
-    [Migration("20231018194454_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20231026031650_Iniial")]
+    partial class Iniial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,36 +62,36 @@ namespace ECommerceDAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7273f922-8bb1-432a-a257-4fe50763ca35"),
+                            Id = new Guid("6dfba41e-fbfd-4a0f-b58b-206000550248"),
                             Category = "phones",
                             DiscountRate = 150m,
                             Image = "",
                             MinimumQuality = "Good",
                             Name = "Iphone15",
                             Price = 1000,
-                            UserId = new Guid("da3f5a5e-8abd-46c0-94e0-012247ea6114")
+                            UserId = new Guid("a5d1bfd1-b6fd-46d1-bbae-24723899c02e")
                         },
                         new
                         {
-                            Id = new Guid("956a9962-a651-4e2e-9437-c22ebfe65adb"),
+                            Id = new Guid("cce2e66d-f3ba-40f8-b7c4-c035997fe560"),
                             Category = "phones",
                             DiscountRate = 10m,
                             Image = "",
                             MinimumQuality = "Good",
                             Name = "Iphone14",
                             Price = 900,
-                            UserId = new Guid("9124be4a-a934-4605-adc1-93415acb5ee1")
+                            UserId = new Guid("7c14d6a8-1e3d-4a36-aab5-e66955d084cf")
                         },
                         new
                         {
-                            Id = new Guid("2601f3c5-aca9-463e-875f-bf7961bc62c7"),
+                            Id = new Guid("c8cb474f-ad9b-4751-b383-fc62f47c8cab"),
                             Category = "phones",
                             DiscountRate = 10m,
                             Image = "",
                             MinimumQuality = "VeryGood",
                             Name = "Iphone13",
                             Price = 800,
-                            UserId = new Guid("89ab33d0-9b1f-4ae3-b188-63788fa867c5")
+                            UserId = new Guid("711376d1-6023-43c2-8976-cd1516464a4a")
                         });
                 });
 
@@ -112,10 +112,6 @@ namespace ECommerceDAL.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DisplayName")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -131,6 +127,10 @@ namespace ECommerceDAL.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -185,48 +185,48 @@ namespace ECommerceDAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("89ab33d0-9b1f-4ae3-b188-63788fa867c5"),
+                            Id = new Guid("711376d1-6023-43c2-8976-cd1516464a4a"),
                             AccessFailedCount = 0,
                             City = "Newyork",
-                            ConcurrencyStamp = "075ea229-4604-4be6-966d-d8817a5a4acb",
-                            DisplayName = "John",
+                            ConcurrencyStamp = "ebffa0ad-c50a-4c91-8a8a-d34dee52c116",
                             Email = "John@example.com",
                             EmailConfirmed = false,
-                            LastLogin = new DateTime(2023, 10, 18, 22, 44, 53, 901, DateTimeKind.Local).AddTicks(9069),
+                            LastLogin = new DateTime(2023, 10, 26, 6, 16, 50, 373, DateTimeKind.Local).AddTicks(7398),
                             LockoutEnabled = false,
                             Password = "John1234",
                             PhoneNumberConfirmed = false,
-                            TwoFactorEnabled = false
+                            TwoFactorEnabled = false,
+                            UserName = "John"
                         },
                         new
                         {
-                            Id = new Guid("9124be4a-a934-4605-adc1-93415acb5ee1"),
+                            Id = new Guid("7c14d6a8-1e3d-4a36-aab5-e66955d084cf"),
                             AccessFailedCount = 0,
                             City = "Paris",
-                            ConcurrencyStamp = "d58dd1f7-b420-4249-ac81-1359adb0df20",
-                            DisplayName = "Sara",
+                            ConcurrencyStamp = "af9efa7a-b62e-41d8-9c20-467e72faf1b4",
                             Email = "Sara@example.com",
                             EmailConfirmed = false,
-                            LastLogin = new DateTime(2023, 10, 18, 22, 44, 53, 901, DateTimeKind.Local).AddTicks(9086),
+                            LastLogin = new DateTime(2023, 10, 26, 6, 16, 50, 373, DateTimeKind.Local).AddTicks(7419),
                             LockoutEnabled = false,
                             Password = "Sara1234",
                             PhoneNumberConfirmed = false,
-                            TwoFactorEnabled = false
+                            TwoFactorEnabled = false,
+                            UserName = "Sara"
                         },
                         new
                         {
-                            Id = new Guid("da3f5a5e-8abd-46c0-94e0-012247ea6114"),
+                            Id = new Guid("a5d1bfd1-b6fd-46d1-bbae-24723899c02e"),
                             AccessFailedCount = 0,
                             City = "Paris",
-                            ConcurrencyStamp = "9b84aef8-1cc6-40a8-b1c2-b55833cfbfb9",
-                            DisplayName = "Michael",
+                            ConcurrencyStamp = "56309715-1d0e-4472-83e0-69cae200d491",
                             Email = "Michael@gmail.com",
                             EmailConfirmed = false,
-                            LastLogin = new DateTime(2023, 10, 18, 22, 44, 53, 901, DateTimeKind.Local).AddTicks(9090),
+                            LastLogin = new DateTime(2023, 10, 26, 6, 16, 50, 373, DateTimeKind.Local).AddTicks(7425),
                             LockoutEnabled = false,
                             Password = "Michael1234",
                             PhoneNumberConfirmed = false,
-                            TwoFactorEnabled = false
+                            TwoFactorEnabled = false,
+                            UserName = "Michael"
                         });
                 });
 

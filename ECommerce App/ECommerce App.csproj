@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.202.12" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.12" />
     <PackageReference Include="microsoft.aspnetcore.identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.12" />
@@ -30,6 +31,10 @@
   <ItemGroup>
     <ProjectReference Include="..\ECommerceBL\ECommerceBL.csproj" />
     <ProjectReference Include="..\ECommerceDAL\ECommerceDAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Images\" />
   </ItemGroup>
 
 </Project>

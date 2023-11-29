@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ECommerceDAL.Repos.Generics
+namespace ECommerceDAL.Repos.Products.Generics
 {
-    public class GenericRepo<T> :IGenericRepo<T> where T : class
+    public class GenericRepo<T> : IGenericRepo<T> where T : class
     {
         private readonly ECommerceContext _ecommerceContext;
 
-        public GenericRepo(ECommerceContext ecommerceContext) 
+        public GenericRepo(ECommerceContext ecommerceContext)
         {
             _ecommerceContext = ecommerceContext;
         }
@@ -21,7 +21,7 @@ namespace ECommerceDAL.Repos.Generics
         {
             return await _ecommerceContext.Set<T>().ToListAsync();
         }
-        public async Task<T?> GetById(int id)
+        public async Task<T> GetById(int id)
         {
             return await _ecommerceContext.Set<T>().FindAsync(id);
         }

@@ -15,5 +15,6 @@ namespace ECommerceBL.DTOs.Products
         public required int Price { get; set; }
         public required string MinimumQuality { get; set; } = string.Empty;
         public required decimal DiscountRate { get; set; }
+        public required Guid UserId { get;  set; }
     }
 }
